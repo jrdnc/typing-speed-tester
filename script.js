@@ -27,6 +27,21 @@ function runTimer() {
 // Match the text entered with the provided text on the page:
 function spellCheck() {
     let textEntered = testArea.value;
+    let originTextMatch = originText.substring(0, textEntered.length);
+    // console.log(testArea.value);
+    console.log(originText.value);
+
+    if (textEntered == originText) { // if text completed and correct, turn green
+        testWrapper.style.borderColor = "#429890";
+    }
+    else {
+        if (textEntered == originTextMatch) { // if text entered so far matches original text up to that length, turn blue
+            testWrapper.style.borderColor = "#64CCF3";
+        }
+        else { // if text entered does not match original text, turn orange
+            testWrapper.style.borderColor = "#E95D0F";
+        }
+    }
     console.log(textEntered);
 }
 
