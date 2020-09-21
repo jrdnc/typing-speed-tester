@@ -12,12 +12,24 @@ const theTimer = document.querySelector(".timer");
 
 
 // Match the text entered with the provided text on the page:
-
+function spellCheck() {
+    let textEntered = testArea.value;
+    console.log(textEntered);
+}
 
 // Start the timer:
-
+function start() {
+    // make sure only detecting very first keypress
+    let textEnteredLength = testArea.value.length;
+    console.log(textEnteredLength);
+}
 
 // Reset everything:
-
+function reset() {
+    console.log("reset button has been pressed");
+}
 
 // Event listeners for keyboard input and the reset button:
+testArea.addEventListener("keypress", start, false);  // start timer on keypress
+testArea.addEventListener("keyup", spellCheck, false); // checkspelling every time a letter is typed
+resetButton.addEventListener("click", reset, false);
