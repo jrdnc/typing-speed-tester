@@ -1,4 +1,4 @@
-# analog-clock
+# typing speed tester
 
 ## description
 
