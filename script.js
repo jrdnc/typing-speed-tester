@@ -5,6 +5,9 @@ const resetButton = document.querySelector("#reset");
 const theTimer = document.querySelector(".timer");
 
 var timer = [0, 0, 0, 0];
+var interval;
+var timerRunning = false;
+
 // Add leading zero to numbers 9 or below (purely for aesthetics):
 function leadingZero(time) {
     if (time <= 9) {
@@ -32,6 +35,7 @@ function spellCheck() {
     console.log(originText.value);
 
     if (textEntered == originText) { // if text completed and correct, turn green
+        clearInterval(interval);
         testWrapper.style.borderColor = "#429890";
     }
     else {
@@ -49,18 +53,28 @@ function spellCheck() {
 function start() {
     // make sure only detecting very first keypress
     let textEnteredLength = testArea.value.length;
-    if (textEnteredLength === 0) {
-        setInterval(runTimer, 10); // run funciton 'runTimer' every 1/1000 sec
+    if (textEnteredLength === 0 && !timerRunning) { // if timerRunning == true, don't create new setInterval object
+        timerRunning = true;
+        interval = setInterval(runTimer, 10); // run funciton 'runTimer' every 1/1000 sec
     }
     console.log(textEnteredLength);
 }
 
 // Reset everything:
 function reset() {
-    console.log("reset button has been pressed");
+    // reset back-end
+    clearInterval(interval);
+    interval = null;
+    timer = [0, 0, 0, 0];
+    timerRunning = false;
+
+    // reset front-end
+    testArea.value = "";
+    theTimer.innerHTML = "00:00:00";
+    testWrapper.style.borderColor = "grey";
 }
 
 // Event listeners for keyboard input and the reset button:
 testArea.addEventListener("keypress", start, false);  // start timer on keypress
-testArea.addEventListener("keyup", spellCheck, false); // checkspelling every time a letter is typed
+testArea.addEventListener("keyup", spellCheck, false); // check spelling every time a letter is typed
 resetButton.addEventListener("click", reset, false);
